@@ -35,6 +35,7 @@ interface ITriggeredByTask {
 }
 
 interface IPlayFabContext {
+    currentEntity: PlayFabProfilesModels.EntityProfileBody;
     playStreamEvent: PlayStreamModels.IBasePlayStreamEvent;
     playerProfile: IPlayFabPlayerProfile;
     triggeredByTask: ITriggeredByTask;
@@ -90,7 +91,7 @@ interface IPlayFabServerAPI {
 <% for(var sa in serverApiList) { var api = serverApiList[sa];
 for(var i in api.calls) { var apiCall = api.calls[i];
 %><%- generateApiSummary("    ", apiCall, "summary", "https://docs.microsoft.com/rest/api/playfab/" + api.name.toLowerCase() + "/" + apiCall.subgroup.toLowerCase().replaceAll(" ","-") + "/" + apiCall.name.toLowerCase()) -%>
-    <%- apiCall.name %>(request: PlayFab<%- api.name %>Models.<%- apiCall.request %>): PlayFab<%- api.name %>Models.<%- apiCall.result %>;
+    <%- apiCall.name %>(request: PlayFab<%- api.name %>Models.<%- apiCall.request %>): PlayFab<%- api.name %>Models.<%- apiCall.result | IApiError %>;
 
 <% } } %>
 }
@@ -109,7 +110,7 @@ interface IPlayFabEntityAPI {
 %>
 <% for(var i in api.calls) { var apiCall = api.calls[i];
 %><%- generateApiSummary("    ", apiCall, "summary", "https://docs.microsoft.com/rest/api/playfab/" + api.name.toLowerCase() + "/" + apiCall.subgroup.toLowerCase().replaceAll(" ","-") + "/" + apiCall.name.toLowerCase()) -%>
-    <%- apiCall.name %>(request: PlayFab<%- api.name %>Models.<%- apiCall.request %>): PlayFab<%- api.name %>Models.<%- apiCall.result %>;
+    <%- apiCall.name %>(request: PlayFab<%- api.name %>Models.<%- apiCall.request %>): PlayFab<%- api.name %>Models.<%- apiCall.result | IApiError %>;
 
 <% } } %>
 }
